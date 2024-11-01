@@ -2,30 +2,33 @@
 
 import { data1 } from "./data.js";
 
-const getEl = (id) => {
-  return document.getElementById(id);
-};
+// Utility function to get element by ID
+const getEl = (id) => document.getElementById(id);
+
+// DOM elements
 const btnContents = document.querySelectorAll(".timeLine-item");
-const timeLine_textC = document.querySelector(".timeLine_textC");
-
-for (let i = 0; i < btnContents.length; i++)
-  btnContents[i].addEventListener("click", function () {
-    this.classList.toggle("active");
-    btnContents.forEach((item) => {
-      if (item !== this) item.classList.remove("active");
-    });
-    timeLine_textC.innerHTML = `
-      <h3>${data1[i].title}</h3>
-      <p>${data1[i].desc}</p>
-    `;
-  });
-
+const timeLineTextC = document.querySelector(".timeLine_textC");
 const timeLineContainer = document.querySelector(".timeLineContainer");
 
 let isDown = false;
 let startX;
 let scrollLeft;
 
+// Add event listeners to timeline items
+btnContents.forEach((btn, index) => {
+  btn.addEventListener("click", function () {
+    this.classList.toggle("active");
+    btnContents.forEach((item) => {
+      if (item !== this) item.classList.remove("active");
+    });
+    timeLineTextC.innerHTML = `
+      <h3>${data1[index].title}</h3>
+      <p>${data1[index].desc}</p>
+    `;
+  });
+});
+
+// Add event listeners for timeline container drag functionality
 timeLineContainer.addEventListener("mousedown", (e) => {
   isDown = true;
   timeLineContainer.classList.add("active");
@@ -47,6 +50,6 @@ timeLineContainer.addEventListener("mousemove", (e) => {
   if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - timeLineContainer.offsetLeft;
-  const walk = (x - startX) * 1.5; // Số pixel để cuộn
+  const walk = (x - startX) * 1.5; // Number of pixels to scroll
   timeLineContainer.scrollLeft = scrollLeft - walk;
 });

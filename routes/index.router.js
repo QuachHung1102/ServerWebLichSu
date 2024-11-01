@@ -4,7 +4,7 @@ const { homeRouter } = require("./home.router");
 
 const rootRouter = express.Router();
 
-rootRouter.use("/home", homeRouter);
+rootRouter.use("/", homeRouter);
 
 module.exports = {
   rootRouter,

@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const thoikyToShow = data1.slice(start, end);
 
     thoikyToShow.forEach((item) => {
+      const encodedTitle = encodeURIComponent(item.title);
       const thoikyItem = `
       <div class="thoiKy d-flex column-gap-3">
         <div class="thoiKy-img">
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="thoiKy-content d-flex flex-column justify-content-center py-2">
           <div class="d-flex justify-content-between align-items-center">
             <h4>
-              <a href="/pages/dauAn.html">${item.title}</a>
+              <a href="./dauAn2.html?title=${encodedTitle}">${item.title}</a>
             </h4>
             <p class="fw-bold text-black m-0">${item.time}</p>
           </div>
@@ -79,43 +80,38 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-  firstPageBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    currentPage = 1;
+  function handlePageChange(newPage) {
+    currentPage = newPage;
     renderThoikys(currentPage);
     renderPagination();
     updatePagination();
+  }
+
+  firstPageBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    handlePageChange(1);
   });
 
   prevPageBtn.addEventListener("click", (e) => {
     e.preventDefault();
     if (currentPage > 1) {
-      currentPage--;
-      renderThoikys(currentPage);
-      renderPagination();
-      updatePagination();
+      handlePageChange(currentPage - 1);
     }
   });
 
   nextPageBtn.addEventListener("click", (e) => {
     e.preventDefault();
     if (currentPage < totalPages) {
-      currentPage++;
-      renderThoikys(currentPage);
-      renderPagination();
-      updatePagination();
+      handlePageChange(currentPage + 1);
     }
   });
 
   lastPageBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    currentPage = totalPages;
-    renderThoikys(currentPage);
-    renderPagination();
-    updatePagination();
+    handlePageChange(totalPages);
   });
 
-  // Khởi tạo hiển thị trang đầu tiên
+  // Initialize the first page display
   renderThoikys(currentPage);
   renderPagination();
   updatePagination();

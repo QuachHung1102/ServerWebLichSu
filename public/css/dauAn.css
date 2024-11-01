@@ -9,6 +9,7 @@
   box-sizing: border-box;
   scrollbar-width: none;
   user-select: none;
+  text-decoration: none !important;
 }
 
 html,
@@ -226,10 +227,12 @@ header nav ul li.active {
 
     .thoiKy-content {
       h4 {
-        color: #d34936;
-        font-family: "1FTV HF Gesco";
-        font-size: 1.5vw;
-        font-weight: 400;
+        a {
+          color: #d34936;
+          font-family: "1FTV HF Gesco";
+          font-size: 1.5vw;
+          font-weight: 400;
+        }
       }
 
       p {
@@ -328,18 +331,29 @@ footer {
   width: var(--width);
 
   .center-content {
-    width: 60%;
+    width: 50%;
 
     p {
-      font-size: 1.6vw;
-      font-family: "UTM-Avo";
-      color: #fff;
+      font-size: 1.1vw;
+      font-family: "1FTV-HF-Gesco";
+      color: #4d4d4d;
+      transition: all 0.5s;
+      text-align: center;
+    }
+
+    .center-content-text {
+      p {
+        font-size: 1.6vw;
+        font-family: "1FTV-HF-Gesco";
+        color: #fff;
+        font-weight: '400';
+      }
     }
   }
 
   .left-content,
   .right-content {
-    width: 20%;
+    width: 25%;
 
     p {
       font-size: 1.2vw;
@@ -364,25 +378,39 @@ footer {
   ul {
     list-style-type: none;
     padding: 0;
+    p {
+      color: #858585;
+      font-size: 1.1vw;
+      font-family: "UTM-Avo";
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 5;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: all 0.5s;
+    }
 
     li {
       display: flex;
       justify-content: space-between;
       align-items: start;
-      column-gap: 1.5vw;
+      column-gap: 2.5vw;
       padding-block: 1.2vh;
       padding-inline: 2vw;
       transition: all 0.5s;
 
       p {
-        font-size: 1.2vw;
+        font-size: 1.1vw;
+      }
+      span {
+        font-size: 0.8vw;
       }
     }
 
     li:hover {
       color: #fff;
-
-      a {
+      p {
         color: #fff;
       }
     }
@@ -390,24 +418,10 @@ footer {
     li.active {
       color: #fff;
 
-      a {
+      p {
         color: #fff;
       }
     }
-  }
-
-  a {
-    color: #858585;
-    text-decoration: none;
-    font-size: 1.2vw;
-    font-family: "UTM-Avo";
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all 0.5s;
   }
 }
 
@@ -417,13 +431,17 @@ footer {
   background-color: #fff;
   text-align: start;
   font-family: "TrixiProRegular";
+  padding-block: 1vh;
+  padding-left: 2vw;
 }
 
 .text-content-right {
   font-family: "UTM-Avo";
   font-size: 0.9vw;
-  max-height: 70vh;
   overflow: scroll;
+  #dauAn-content {
+    height: 70vh;
+  }
   img {
     width: 100%;
     max-height: 50vh;

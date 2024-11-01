@@ -1,60 +1,55 @@
 "use strict";
 
-import { data1 } from "./data.js";
+import { dataForHome } from "./data.js";
 
-// render modal
-
+// Render modal content
 function renderToDo() {
-  let content = "";
-  //Duyệt mảng từ phải qua trái (bắt đầu ở phần tử cuối mảng)
-  content = data1.reduceRight((tdContent, item, index) => {
-    //tdContent = tdContent(noi dung cũ) + `nội dung mới`;
+  return dataForHome.reduceRight((tdContent, item, index) => {
     tdContent += `
-          <div id="modal${index}" class="customModal hidden">
-            <button id="close-modal${index}" class="close-modal">&times;</button>
-            <h1>${item.title}</h1>
-            <img src="./images/${item.id}.png" alt="logo">
-            <p>${item.desc}</p>
-          </div>
-      `;
+      <div id="modal${index}" class="customModal hidden">
+        <button id="close-modal${index}" class="close-modal">&times;</button>
+        <h1>${item.title}</h1>
+        <img src="./images/${item.id}.png" alt="logo">
+        <p>${item.desc}</p>
+      </div>
+    `;
     return tdContent;
   }, "");
-  return content;
 }
+
 document.querySelector("body").innerHTML += renderToDo();
 
-const getEl = (id) => {
-  return document.getElementById(id);
-};
+// Utility function to get element by ID
+const getEl = (id) => document.getElementById(id);
+
+// DOM elements
 const modals = document.querySelectorAll(".customModal");
 const btnCloseModal = document.querySelectorAll(".close-modal");
-// const btnsOpenModal = document.querySelectorAll(".show-modal");
 const milestones = document.querySelectorAll(".milestone");
 const overlay = document.querySelector(".overlay");
 
+// Close modal function
 const closeModal = () => {
   modals.forEach((modal) => modal.classList.add("hidden"));
   overlay.classList.add("hidden");
 };
 
-// for (let i = 0; i < btnsOpenModal.length; i++)
-//   btnsOpenModal[i].addEventListener("click", function () {
-//     getEl(`modal${i}`).classList.remove("hidden");
-//     overlay.classList.remove("hidden");
-//   });
+// Add event listeners to close buttons
+btnCloseModal.forEach((btn) => btn.addEventListener("click", closeModal));
 
-for (let i = 0; i < btnCloseModal.length; i++)
-  btnCloseModal[i].addEventListener("click", closeModal);
-
-for (let i = 0; i < milestones.length; i++)
-  milestones[i].addEventListener("click", function () {
-    getEl(`modal${i}`).classList.remove("hidden");
+// Add event listeners to milestones
+milestones.forEach((milestone, index) => {
+  milestone.addEventListener("click", () => {
+    getEl(`modal${index}`).classList.remove("hidden");
     overlay.classList.remove("hidden");
   });
+});
 
+// Add event listener to overlay
 overlay.addEventListener("click", closeModal);
 
-document.addEventListener("keydown", function (e) {
+// Add event listener for escape key
+document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeModal();
   }

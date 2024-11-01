@@ -28,6 +28,11 @@ app.use(express.static(path.join(rootDir1, "public")));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/v1", rootRouter);
+// Redirect root to /api/v1/home
+app.get("/", (req, res) => {
+  res.redirect("/api/v1/home");
+});
+
 // app.get("/home", (req, res) => {
 //   res.sendFile(path.join(rootDir1, "/public/pages/index-vn.html"));
 // });
